@@ -9,13 +9,13 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String subject;
+    private Integer subject;
 
     public Teacher(){
 
     }
 
-    public Teacher(String name, String subject){
+    public Teacher(String name, Integer subject){
         this.name = name;
         this.subject = subject;
     }
@@ -36,11 +36,11 @@ public class Teacher {
         this.name = name;
     }
 
-    public String getSubject() {
+    public Integer getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(Integer subject) {
         this.subject = subject;
     }
 }

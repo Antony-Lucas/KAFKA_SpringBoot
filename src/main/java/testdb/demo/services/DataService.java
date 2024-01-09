@@ -8,6 +8,7 @@ import testdb.demo.entities.Teacher;
 import testdb.demo.repositories.TeacherRepositories;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DataService {
@@ -20,16 +21,25 @@ public class DataService {
         try {
             List<Teacher> teachers = teacherRepository.findSalesGreaterThanDate();
 
-            // Montagem da resposta JSON com os dados dos professores
-            JSONArray teachersArray = new JSONArray();
+            JSONArray labelsArray = new JSONArray();
+            JSONArray dataArray = new JSONArray();
             for (Teacher teacher : teachers) {
-                JSONObject teacherJson = new JSONObject();
-                teacherJson.put("name", teacher.getName());
-                teacherJson.put("subject", teacher.getSubject());
-                teachersArray.put(teacherJson);
+                labelsArray.put(teacher.getName());
+                dataArray.put(teacher.getSubject());
             }
 
-            jsonResponse.put("teachers", teachersArray);
+            JSONObject dataset = new JSONObject();
+            dataset.put("data", dataArray);
+
+            JSONArray datasetsArray = new JSONArray();
+            datasetsArray.put(dataset);
+
+            JSONObject teacherObject= new JSONObject();
+
+            teacherObject.put("labels", labelsArray);
+            teacherObject.put("datasets", datasetsArray);
+
+            jsonResponse.put("teachers", teacherObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
